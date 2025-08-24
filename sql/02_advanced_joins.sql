@@ -1,0 +1,60 @@
+-- У какого самолёта самое большое количество рейсов и его компания
+SELECT pl.tailnum, fl.carrier, al.name AS airline_name, COUNT(*) AS flight_count
+FROM planes AS pl
+LEFT JOIN flights AS fl
+USING(tailnum)
+LEFT JOIN airlines AS al 
+USING(carrier)
+GROUP BY pl.tailnum, fl.carrier, al.name  -- группируем по всем трём полям
+ORDER BY flight_count DESC
+/* Самое большое кол-во рейсов у самолёта с tailnum=N711MQ компании Envoy Air, он совершил 18 рейсов */;
+SELECT tailnum, COUNT(DISTINCT carrier) as carriers_count
+FROM flights
+GROUP BY tailnum
+HAVING COUNT(DISTINCT carrier) > 1
+ORDER BY carriers_count DESC
+/* ДО поделения на carrier было 3322 строки, после - 3326
+Запрос выше показывает, сколько и какие имменно самолёты летали больше чем за одну компанию
+*/;
+
+-- Простой запрос на FULL JOIN
+SELECT carrier, al.name, fl.month, fl.minute, fl.dep_time
+FROM airlines as al
+FULL JOIN flights as fl
+USING(carrier)
+WHERE carrier='UA' OR carrier='AA';
+
+-- Простой запрос на CROSS JOIN
+SELECT fl.dest, fl.origin, al.name
+FROM flights AS fl
+CROSS JOIN airlines AS al
+WHERE fl.origin IN ('JFK') AND al.carrier IN ('HA');
+
+
+-- SELF JOIN (сравнивать колонку с разными значениями в ней самой, в одной таблице)
+
+-- Сейчас написал сравнение дней в колонке по месяцам из flights
+SELECT fl1.day AS day1, fl2.day AS day2, fl1.month
+FROM flights AS fl1
+INNER JOIN flights AS fl2
+ON fl1.month=fl2.month
+AND fl1.day<>fl2.day
+LIMIT 40
+/* Запрос (условно): 
+Берёт первый рейс 1-го января из таблицы fl1.
+Соединяет его со всеми сотнями рейсов, которые произошли 2-го января в таблице fl2.
+Потом соединяет его со всеми сотнями рейсов 3-го января и т.д.
+Затем он берёт второй рейс 1-го января и повторяет весь процесс.
+*/;
+
+SELECT fl1.flight AS first_flight, fl2.flight AS second_flight, fl1.origin AS first_origin, fl2.origin AS second_origin, fl1.dest, fl2.sched_arr_time AS second_arr_time, fl1.sched_arr_time AS first_arr_time, fl1.sched_arr_time - fl2.sched_arr_time AS difference
+FROM flights AS fl1
+INNER JOIN flights AS fl2
+ON fl1.dest = fl2.dest
+AND fl1.day = fl2.day
+AND fl1.month = fl2.month
+AND fl1.sched_arr_time > fl2.sched_arr_time
+AND (fl1.sched_arr_time - fl2.sched_arr_time) <= 5
+ORDER BY difference ASC
+/* Данный SQL-запрос выполняет поиск пар рейсов с одинаковым пунктом назначения (dest), 
+которые прибывают в один и тот же день с интервалом не более 5 минут */;

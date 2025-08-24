@@ -77,11 +77,11 @@ CREATE TABLE flights (
 );
 
 -- Загружаем CSV (NA → NULL)
-\copy airlines FROM 'airlines.csv' WITH (FORMAT csv, HEADER true, NULL 'NA');
-\copy airports FROM 'airports.csv' WITH (FORMAT csv, HEADER true, NULL 'NA');
-\copy planes FROM 'planes.csv' WITH (FORMAT csv, HEADER true, NULL 'NA');
-\copy weather FROM 'weather.csv' WITH (FORMAT csv, HEADER true, NULL 'NA');
-\copy flights FROM 'flights.csv' WITH (FORMAT csv, HEADER true, NULL 'NA');
+\copy airlines FROM 'data/airlines.csv' WITH (FORMAT csv, HEADER true, NULL 'NA');
+\copy airports FROM 'data/airports.csv' WITH (FORMAT csv, HEADER true, NULL 'NA');
+\copy planes FROM 'data/planes.csv' WITH (FORMAT csv, HEADER true, NULL 'NA');
+\copy weather FROM 'data/weather.csv' WITH (FORMAT csv, HEADER true, NULL 'NA');
+\copy flights FROM 'data/flights.csv' WITH (FORMAT csv, HEADER true, NULL 'NA');
 
 -- После успешной загрузки можно добавить внешние ключи
 ALTER TABLE flights
