@@ -2,7 +2,7 @@ SELECT *
 FROM airlines
 LIMIT 20;
 
-SELECT * 
+SELECT *
 FROM airports
 LIMIT 20;
 
@@ -21,9 +21,9 @@ LIMIT 20;
 -- У какого самолёта самое большое количество рейсов и его компания
 SELECT pl.tailnum, fl.carrier, al.name AS airline_name, COUNT(*) AS flight_count
 FROM planes AS pl
-LEFT JOIN flights AS fl
+INNER JOIN flights AS fl
 USING(tailnum)
-LEFT JOIN airlines AS al 
+INNER JOIN airlines AS al 
 USING(carrier)
 GROUP BY pl.tailnum, fl.carrier, al.name  -- группируем по всем трём полям
 ORDER BY flight_count DESC
@@ -42,7 +42,7 @@ SELECT carrier, al.name, fl.month, fl.minute, fl.dep_time
 FROM airlines as al
 FULL JOIN flights as fl
 USING(carrier)
-WHERE carrier='UA' OR carrier='AA';
+WHERE carrier IN ('UA', 'AA') AND fl.month=6;
 
 -- Простой запрос на CROSS JOIN
 SELECT fl.dest, fl.origin, al.name

@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "flights_db",
+            "database": "flights_db",
+            "username": "postgres",
+            "password": "postgres"
+        }
+    ]
+}

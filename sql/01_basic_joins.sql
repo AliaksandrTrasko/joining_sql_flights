@@ -7,12 +7,12 @@ WHERE fl.month = 5
 GROUP BY al.name
 ORDER BY COUNT(*) DESC;
 
---У какой компании меньше всего опозданий (dep_delay=0)
-SELECT al.name, COUNT(fl.dep_delay) AS not_delay
+--У какой компании меньше всего опозданий (arr_delay=0)
+SELECT al.name, COUNT(fl.arr_delay) AS not_delay
 FROM airlines AS al
 INNER JOIN flights as fl
 USING(carrier)
-WHERE dep_delay<=0
+WHERE arr_delay<=0
 GROUP BY al.name
 ORDER BY not_delay DESC;
 
