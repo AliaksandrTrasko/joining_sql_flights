@@ -15,16 +15,11 @@ This project is a series of analytical SQL queries performed on the public nycfl
 
 The goal of this project is to demonstrate SQL skills, including various JOIN types, UNION, INTERSECT, subqueries, and aggregate functions to extract useful insights from the data.
 
-### **Tools Used**
-
-* **DBMS**: PostgreSQL
-* **Dataset**: [nycflights13](https://github.com/tidyverse/nycflights13.git)
-* **Version Control**: Git
 
 ### **Project Structure**
 
 ```
-├── data/                  # Folder with the source .csv dataset files
+├── data/                       # Folder with the source .csv dataset files
 │   ├── airlines.csv
 │   ├── airports.csv
 │   └── ...
@@ -37,7 +32,31 @@ The goal of this project is to demonstrate SQL skills, including various JOIN ty
 └── README.md                   # This file
 ```
 
-### **How To Use**
+
+### **Tools & Techniques**
+
+* **DBMS**: PostgreSQL
+* **Dataset**: [nycflights13](https://github.com/tidyverse/nycflights13.git)
+* **Version Control**: Git
+
+
+## Dataset
+
+This project uses the **`nycflights13`** dataset, which contains detailed information on all 336,776 flights that departed from New York City (EWR, JFK, LGA) in 2013. The data is comprised of five related tables:
+* `flights`
+* `weather`
+* `planes`
+* `airports`
+* `airlines`
+
+
+## Key Insights
+- Of the 3,322 aircraft in the registry, 998 of them have never flown, which is 30%. 
+- The highest average age of aircraft in the company - 35 years (as for 2013) in Envoy Air with 769 flights.
+- Several aircraft were used by several airlines.
+
+
+### **How to Run This Project**
 1. **Clone the repository:**
 ```bash
 git clone https://github.com/AliaksandrTrasko/joining_sql_flights.git
@@ -60,6 +79,7 @@ psql -U postgres -d flights_db -f sql/setup_fixed.sql
 psql -U postgres -d flights_db
 ```
 ---
+
 ### **Key Questions Explored:**
 
 During the analysis, the following questions were answered:
