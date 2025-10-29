@@ -1,6 +1,4 @@
-/*  UNION // UNION ALL - накладывают поля друг на друга
-    UNION - Если записи идентичны, UNION вернёт только одну запись
-    UNION ALL - Вернёт абсолютно  все */
+-- Airlines with CASE logic
 SELECT
     CASE
         WHEN UPPER(LEFT(name, 1)) IN ('A', 'E', 'I', 'O', 'U')
@@ -10,19 +8,19 @@ SELECT
 FROM airlines
 UNION ALL
 
-SELECT 'airports', name -- для последующий SELECT в своей колонке не нужно указывать название
+SELECT 'airports', name -- for subsequent SELECT statements, you do not need to specify the name in your column
 FROM airports
 UNION ALL
 
 SELECT 'manufacturer', manufacturer
 FROM planes
-WHERE manufacturer IS NOT NULL; -- Исключаем пустые значения
+WHERE manufacturer IS NOT NULL; -- Exclude empty values
 
 
 --INTERSECT
 
 --№1----------------------------
--- Авиакомпании, которые летают из всех трех аэропортов NYC
+-- Airlines that fly from all three NYC airports
 SELECT carrier FROM flights WHERE origin = 'JFK'
 INTERSECT
 SELECT carrier FROM flights WHERE origin = 'LGA'
@@ -31,16 +29,16 @@ SELECT carrier FROM flights WHERE origin = 'EWR';
 --------------------------
 
 --№2----------------------------
--- Кто как часто летает из NYC
+-- How often each airline flies from NYC?
 SELECT carrier, COUNT(*) as flights_count
 FROM flights 
-WHERE carrier IN ('AA', 'B6', 'DL', 'UA', 'US', 'MQ', 'EV', '9E') -- результат предыдущего запроса
+WHERE carrier IN ('AA', 'B6', 'DL', 'UA', 'US', 'MQ', 'EV', '9E') -- previous query result
 GROUP BY carrier
 ORDER BY flights_count DESC;
 --------------------------
 
 --№3----------------------------
--- Куда летали и American Airlines, и Delta
+-- Destinations served by both American Airlines and Delta
 SELECT dest 
 FROM flights
 WHERE carrier = 'AA'
@@ -53,14 +51,14 @@ WHERE carrier = 'DL';
 
 -- EXCEPT
 
--- Из каких аэропортов вылетают, в которые не прилетают?
+-- Which airports are arrival destinations but never departure origins?
 SELECT origin
 FROM flights
 EXCEPT
 SELECT dest
 FROM flights;
 
--- В какие аэропорты прилетают, но из которых НЕ вылетают (из NYC)?
+-- Which airports are departure origins but never arrival destinations?
 SELECT dest
 FROM flights
 EXCEPT
@@ -68,10 +66,10 @@ SELECT origin
 FROM flights;
 
 
--- Самолеты, которые есть в регистре, но никогда не летали
+-- Aircraft that are in the registry but have never flown
 SELECT tailnum 
 FROM planes
 EXCEPT
 SELECT tailnum 
 FROM flights 
-WHERE tailnum IS NOT NULL; -- 998 самолётов ни разу не летали
+WHERE tailnum IS NOT NULL; -- 998 aircraft have never flown

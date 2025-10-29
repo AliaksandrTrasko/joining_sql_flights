@@ -1,7 +1,7 @@
 -- SUBQUERIES
 
 ------ WHERE clause
--- Рейсы, которые выполнялись на самолетах Boeing 737
+-- Flights operated by Boeing 737
 SELECT *
 FROM flights
 WHERE tailnum IN (
@@ -10,30 +10,30 @@ WHERE tailnum IN (
     WHERE model LIKE '737%'
 );
 
--- Рейсы в аэропорты на восточном побережье
+-- Flights to airports on the East Coast
 SELECT *
 FROM flights
 WHERE dest IN (
     SELECT faa
     FROM airports
-    WHERE lon > -80  -- восточнее 80° западной долготы
+    WHERE lon > -80  -- east of 80° west longitude
 );
 
-------   clause (долгие)
+------ SELECT clause
 
--- Для каждого аэропорта показать количество рейсов ИЗ него
+-- For each airport, show the number of flights departing FROM it
 SELECT DISTINCT origin, 
     (SELECT COUNT(*)
     FROM flights AS f2
     WHERE f1.origin = f2.origin
     ) AS counts
 FROM flights AS f1;
--- Вместо подзапроса в SELECT
+-- Instead of a subquery in SELECT
 SELECT origin, COUNT(*) AS total_flights
 FROM flights
 GROUP BY origin;
 
--- Средняя задержка по аэропорту назначения
+-- Average delay at destination airport
 SELECT fl1.dest,
     (SELECT ROUND(AVG(fl2.arr_delay), 2)
     FROM flights AS fl2
@@ -41,7 +41,7 @@ SELECT fl1.dest,
 FROM flights AS fl1
 LIMIT 10;
 
--- Для каждого самолета показать общее количество полетов
+-- For each aircraft, show the total number of flights
 SELECT DISTINCT tailnum,
        (SELECT COUNT(*)
         FROM flights f2
@@ -52,6 +52,7 @@ LIMIT 10;
 
 ------ FROM clause
 
+-- Average flight distance for each aircraft (by 'tailnum')
 SELECT pl.tailnum, pl.manufacturer, pl.model,
        route_stats.avg_distance
 FROM planes AS pl,
@@ -60,6 +61,8 @@ FROM planes AS pl,
     GROUP BY tailnum) AS route_stats
 WHERE pl.tailnum = route_stats.tailnum
 ORDER BY avg_distance DESC;
+
+-- Average flight delays by month and airline
 
 SELECT a.name, a.carrier,
        delay_stats.month,
@@ -74,4 +77,5 @@ FROM airlines AS a,
       GROUP BY carrier, month) AS delay_stats
 WHERE a.carrier = delay_stats.carrier
   AND delay_stats.avg_delay > 15
+  AND delay_stats.flight_count > 5
 ORDER BY delay_stats.avg_delay DESC;
