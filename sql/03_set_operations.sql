@@ -17,27 +17,22 @@ FROM planes
 WHERE manufacturer IS NOT NULL; -- Exclude empty values
 
 
---INTERSECT
+-- INTERSECT
 
---№1----------------------------
 -- Airlines that fly from all three NYC airports
 SELECT carrier FROM flights WHERE origin = 'JFK'
 INTERSECT
 SELECT carrier FROM flights WHERE origin = 'LGA'
 INTERSECT  
 SELECT carrier FROM flights WHERE origin = 'EWR';
---------------------------
 
---№2----------------------------
 -- How often each airline flies from NYC?
 SELECT carrier, COUNT(*) as flights_count
 FROM flights 
 WHERE carrier IN ('AA', 'B6', 'DL', 'UA', 'US', 'MQ', 'EV', '9E') -- previous query result
 GROUP BY carrier
 ORDER BY flights_count DESC;
---------------------------
 
---№3----------------------------
 -- Destinations served by both American Airlines and Delta
 SELECT dest 
 FROM flights
@@ -46,8 +41,6 @@ INTERSECT
 SELECT dest 
 FROM flights 
 WHERE carrier = 'DL';
---------------------------
-
 
 -- EXCEPT
 

@@ -1,23 +1,3 @@
-SELECT * 
-FROM airlines
-LIMIT 20;
-
-SELECT *
-FROM airports
-LIMIT 20;
-
-SELECT * 
-FROM flights
-LIMIT 20;
-
-SELECT * 
-FROM planes
-LIMIT 20; 
-
-SELECT *
-FROM weather
-LIMIT 20;
-
 -- Find the aircraft with the most flights and its airline
 SELECT pl.tailnum, fl.carrier, al.name AS airline_name, COUNT(*) AS flight_count
 FROM planes AS pl
@@ -51,7 +31,6 @@ WHERE fl.origin IN ('JFK') AND al.carrier IN ('HA');
 
 
 -- A simple query for SELF JOIN (compare a column with different values within it, in a single table)
-
 -- I just wrote a comparison of days in a column by month from flights.
 SELECT fl1.day AS day1, fl2.day AS day2, fl1.month
 FROM flights AS fl1

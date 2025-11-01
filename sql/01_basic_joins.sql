@@ -1,3 +1,23 @@
+SELECT * 
+FROM airlines
+LIMIT 20;
+
+SELECT *
+FROM airports
+LIMIT 20;
+
+SELECT * 
+FROM flights
+LIMIT 20;
+
+SELECT * 
+FROM planes
+LIMIT 20; 
+
+SELECT *
+FROM weather
+LIMIT 20;
+
 -- How many flights were there in the 5th month
 SELECT DISTINCT al.name, COUNT(*)
 FROM airlines AS al 
@@ -16,7 +36,7 @@ WHERE arr_delay<=0
 GROUP BY al.name
 ORDER BY not_delay DESC;
 
---Count the total number of flights for each airline.
+-- Count the total number of flights for each airline
 SELECT al.name, COUNT(*)
 FROM airlines AS al
 INNER JOIN flights as fl
