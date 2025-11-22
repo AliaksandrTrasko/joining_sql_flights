@@ -138,4 +138,4 @@ Most carriers maintain generally punctual operations, with only a small number o
 Therefore, median delay provides a *more realistic measure* of typical passenger experience, while mean delay reflects sensitivity to *occasional extreme events*.
 * **Conclusion:**
 Although certain airlines show high average delay times, their median performance suggests overall reliability.
-Travelers can interpret this as: these carriers are usually on time, but when delays do occur, they tend to be long and infrequent.
+Travelers can interpret this as: these carriers are usually on time, but when delays do occur, they tend to be long and infrequent
