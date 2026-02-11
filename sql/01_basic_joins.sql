@@ -42,7 +42,7 @@ FROM airlines AS al
 INNER JOIN flights as fl
 USING (carrier)
 GROUP BY al.name
-ORDER BY COUNT(*) DESC
+ORDER BY COUNT(*) DESC;
 
 -- How weather affected delays. Lower 'visib' means worse visibility
 SELECT we.visib, AVG(fl.dep_delay) AS avg_delay, COUNT(*) AS number_of_flights
@@ -51,7 +51,7 @@ INNER JOIN weather AS we
 ON fl.time_hour = we.time_hour AND fl.origin = we.origin
 WHERE fl.dep_delay > 0
 GROUP BY we.visib
-ORDER BY we.visib DESC
+ORDER BY we.visib DESC;
 
 -- Average age of planes for each airline
 SELECT al.name AS airline_name, ROUND(AVG(p.year), 0) AS avg_plane_age

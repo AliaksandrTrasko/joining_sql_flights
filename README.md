@@ -89,4 +89,4 @@ During the analysis, the following questions were answered:
 * Are there airports that flights only arrive at but do not depart from (within this dataset)?
 * Which flights were operated by Boeing 737 aircraft?
 
-**[➡️ For a detailed, query-by-query breakdown of the analysis, see ANALYSIS.md](ЗАПОЛНИТЬ ХУУУУУУУУУУУУУУУУУУУУУЙЙЙЙЙЙЙЙЙЙЙЙЙ)**
+**[➡️ For a detailed, query-by-query breakdown of the analysis, see ANALYSIS.md](ANALYSIS.md)**
